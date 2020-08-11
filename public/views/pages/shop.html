@@ -1,0 +1,191 @@
+<div class="container container-fluid">
+
+    <!--<center> <i id="shopLoader" ng-show="shoeLoader" class="fa fa-spinner fa-spin fa-3x fa-fw"></i></center>-->
+
+    <div class="loadme" ng-show="loadme">
+        <br>
+        <br>
+
+
+
+
+        <div class="page-header">
+            <center>
+                <h1 class="myprofiletitle">Welcome to the shop</h1>
+            </center>
+            <div class="row">
+                <div class="col-sm-12 details2 detailsfxed">
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <div class="navbar-form pull-right">
+
+            <!--<button type="button" class='btn btn-submit'>Search</button>-->
+            <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-primary">Sort by</button>
+                <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <!-- <span class = "caret"></span>-->
+                    <span class = "sr-only">Toggle Dropdown</span>
+                </button>
+
+
+                <ul class="dropdown-menu">
+                    <li><a href="#" ng-click="sortOrder('-price');">Price-Highest</a></li>
+                    <li><a href="#" ng-click="sortOrder('price');">Price-Lowest</a></li>
+                    <li><a href="#" ng-click="sortOrder('name');">Name</a></li>
+
+                </ul>
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+
+        <div infinite-scroll="loadMoreo()" infinite-scroll-distance="0.1">
+
+            <center>
+                <div class="landing " ng-repeat="shoe in shoes | orderBy: order track by $index ">
+                    <p class="pull-left bellefair" id="shopitemtitle">{{shoe.name | uppercase}}|
+                        
+                    </p>
+
+                    
+               
+               
+                    <landing-gallery></landing-gallery>
+                    <p class="pull-right bellefair " id="shopprice">{{shoe.price | currency}}</p>
+                    <!--<i class="fa fa-heart-o pull-left " id="shopheart" aria-hidden="true"> {{shoe.hearts}}</i> -->
+
+                    <!--<p class=" myprofiletitle pull-left"> <i class="fa fa-heart-o" aria-hidden="true"></i> {{shoe.hearts}}</p>
+                    -->
+                    <!--<button class = "btn btn-inverse" ng-click="loadMoreo()">test</button>-->
+
+
+                </div>
+
+            </center>
+        </div>
+
+        <button back-to-top-jquery ng-click="topFunction();" id="myBtn" title="Go to top"><i class="fa fa-angle-up" aria-hidden="true"></i></button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-12 details2 detailsfxed">
+            </div>
+
+            <div class="col-sm-4 sitemap">
+
+                <ul>
+                    <li>
+                        <a href="/faq">
+                            <p>Faq</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/returns">
+                            <p>Return Policy</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="/contact">
+                            <p>Contact Us</p>
+                        </a>
+                    </li>
+                </ul>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 emailsignup ">
+                <center>
+
+                    <h4 id="whatsnewtitle">Stay Connected!</h4>
+                </center>
+                <center>
+
+                    <p ng-show="emailLoading && !emailEntryFailed" id="emailloading" class="secondarytext">"LOADING.."</p>
+                    <p ng-show="emailEntryFailed" class="secondarytext">"You've Already Been Added To The List!"</p>
+                    <p ng-show="invalidEmail" class="secondarytext">"Invaid E-mail..."</p>
+                </center>
+
+                <center>
+                    <p ng-show="joinOurEmailList" id="emailadded" class="secondarytext">"Join Our Maillist To Receive 10% Off Coupon Code, And Early Bird Savings!"</p>
+                </center>
+                <center>
+                    <p ng-show="emailAdded" id="joinourmailingliststyling" class="secondarytext">"Email Added, Check Your Inbox For Confirmation..."</p>
+                </center>
+
+                <form name="emailSignup" ng-submit="addToEmailList(emailListData, emailSignup.$valid);" novalidate>
+
+
+                    <div class="form-group">
+                        <!-- Email Div -->
+                        <div ng-class="{ 'has-success':(emailSignup.email.$valid && !emailSignup.email.$pristine && !emailInvalid), 'has-error':(!emailSignup.email.$valid && !emailSignup.email.$pristine) || (!emailSignup.email.$valid && emailSignup.$submitted) || emailInvalid }">
+                            <!-- Email Input -->
+                            <center><label id="emailcodetitlestyling">Email:</label></center>
+                            <input ng-disabled="disabled" class="form-control" type="text" name="email" placeholder="E-mail *" ng-model="emailListData.email"
+                                ng-minlength="3" ng-maxlength="40" ng-pattern="/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/"
+                                ng-blur="checkEmail(emailSignupData);" required>
+                            <!-- Email Validation -->
+                            <p class="help-block" ng-show="(!emailSignup.email.$pristine && emailSignup.email.$error.required) || (emailSignup.$submitted && emailSignup.email.$error.required)">This field is required</p>
+                            <span ng-show="checkingEmail && emailSignup.email.$valid" class="glyphicon glyphicon-repeat"></span>
+                            <p class="help-block" ng-show="emailMsg && !emailSignup.email.$error.required && emailSignup.email.$valid">{{ emailMsg }}</p>
+                            <!--<ul ng-show="(!emailSignup.email.$pristine && emailSignup.email.$error.pattern) || (!emailSignup.email.$pristine && emailSignup.email.$error.minlength) || (!emailSignup.email.$pristine && emailSignup.email.$error.maxlength)"
+                            class="help-block">
+                            <li>Must contain "@"</li>
+                            <li>Must not contain any special characters</li>
+                            <li>Must be at least 3 characters but no more than 25</li>
+                        </ul>-->
+                        </div>
+                    </div>
+                    <center><button class="btn btn-primary emaillistbutton">Sign-up!</button></center>
+
+                    <br>
+                </form>
+
+            </div>
+
+
+
+
+            <div class='col-sm-9 '>
+                <br>
+
+                <div class="socialmediaboxes">
+                    <center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px  "class="fa fa-instagram socialmediabuttons" aria-hidden="true"></i></a></center>
+                </div>
+                <div class="socialmediaboxes">
+                    <center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px "class="fa fa-facebook socialmediabuttons" aria-hidden="true"></i></a></center>
+                </div>
+                <div class="socialmediaboxes">
+                    <center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px "class="fa fa-twitter socialmediabuttons " aria-hidden="true"></i></a></center>
+                </div>
+                <br>
+            </div>
+            <br>
+            <div class="col-sm-3">
+
+
+            </div>
+
+
+            <div class="col-sm-12 details2">
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>

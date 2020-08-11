@@ -1,0 +1,9 @@
+<!--<a class = "pull-right" id = "heartlink" ng-click="store.addHeart(shoe._id,shoe.hearts)"><img id ="hearted"ng-class="{hearted: shoe.hearts===0}"  ng-src= "{{store.heartlink}}"/></a>
+
+<a class = "pull-right" id = "heartlink" ng-click="store.addHeart(shoe._id,shoe.hearts)"><img id="heartbutton" ng-class="{heartbutton: shoe.hearts===1}" ng-src= "{{store.heartlink}}"/></a>
+-->
+<i ng-controller = "mensCtrl1 as shoes" ng-show="!heartactivated"class="fa fa-heart-o" id= "unactivatedheart"ng-click="heartAdder()" aria-hidden="true"></i>
+<!--<i  ng-controller = "mensCtrl as shoes"ng-show = "open" class="fa fa-heart-o fa-spin" aria-hidden="true"></i>-->
+<i ng-controller = "mensCtrl1 as shoes"  ng-show="heartactivated"class="fa fa-heart "id= "activatedheart"  ng-click="heartAdder()"aria-hidden="true"></i>
+<span class = "secondarytextsimple" id ="totalhearts">{{totalHearts}}</span>
+<!--<i class="fa fa-heart " aria-hidden="true"></i>-->

@@ -1,0 +1,72 @@
+<div class="container container-fluid">
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h1 class="myprofiletitle">User Login</h1>
+            </div>
+            <form ng-submit="main.doLogin(loginData);">
+
+                <label>Username:</label>
+                <input ng-disabled="main.disabled" class="form-control" type="text" placeholder="username" ng-model="main.loginData.username"
+                />
+                <label>Password:</label>
+                <input ng-disabled="main.disabled" class="form-control" type="password" placeholder="password" ng-model="main.loginData.password"
+                />
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button ng-disabled="main.disabled" class="btn btn-submit pull-left" type="submit">Login</button>
+
+
+
+                        <a class="pull-right" href="/resetusername"><button ng-disabled="main.disabled"class="btn btn-submit" type="button">Forgot Username</button></a>
+                        <a class="pull-right" href="/resetpassword"><button ng-disabled="main.disabled"class="btn btn-submitdarker" type="button">Forgot Password</button></a>
+
+                    </div>
+                </div>
+
+            </form> 
+
+
+
+
+            <br>
+
+            <div class="jumbotron text-center"  id="loginloading" ng-show="main.loading">
+
+                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                <p>loading...</p>
+
+            </div>
+            <br>
+            <div class=" show-hide-message" ng-show="main.successMsg">
+                <div class="alert alert-success">{{main.successMsg}}</div>
+
+            </div>
+            <br>
+            <div class=" show-hide-message" ng-show="main.errorMsg">
+                <div class="alert alert-danger">{{main.errorMsg}}&nbsp <a href="/resend" ng-show="main.expired"><button class="btn btn-default">Resend activation link...</button> </a></div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-12 details2">
+        </div>
+        <br>
+        <br>
+
+    </div>

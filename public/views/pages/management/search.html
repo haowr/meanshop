@@ -1,0 +1,94 @@
+<div class = "container container-fluid">
+<br>
+<div class = "page-header">
+    <center><h4 class = "myprofiletitle">Search Engine</h4></center>
+</div>
+
+
+<!-- Input for filter -->
+
+
+<div class="navbar-form">
+    <form name = "searchForm" ng-submit="management.advancedSearch(searchByUsername, searchByEmail, searchByName)">
+        <div class = "form-group">
+        <input type= "text" name="searchByUsername" class= "form-control" placeholder= "Username..." ng-model="searchByUsername">
+        <!--<button type = "button"class = "btn btn-primary">Username</button>-->
+        <br>
+        <input type= "text" name="searchByEmail" class= "form-control" placeholder= "E-mail..." ng-model="searchByEmail">
+        <!--<button type = "button"class = "btn btn-primary">E-mail</button>-->
+        <br>
+        <input type= "text" name="searchByName" class= "form-control" placeholder= "Name..." ng-model="searchByName">
+        <!--<button type = "button"class = "btn btn-primary">Name</button>-->
+    </div>
+    <button type="submit"  class="btn btn-md btn-submit">Search</button>
+    </form>
+    <br>
+    <br>
+    <!-- Sort Order Dropdown Menu -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-submitdarker">Sort by</button>
+        <button type="button" class="btn btn-submitdarker dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            <!-- First Dropdown Option: Username -->
+            <li><a ng-click="management.sortOrder('username');" href="#">Username</a></li>
+            <!-- Second Dropdown Option: E-mail -->
+            <li><a ng-click="management.sortOrder('email');" href="#">E-mail</a></li>
+            <!-- Third Dropdown Option: Name -->
+            <li><a ng-click="management.sortOrder('name');" href="#">Name</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<div ng-show="management.searchLimit === undefined">
+    <p>Results:{{( management.users | filter: advancedSearchFilter | limitTo: management.searchLimit ).length }}</p>
+</div>
+<div ng-show="management.sort">
+     <p>Sorted by: {{management.sort}}</p>   
+</div>
+
+
+
+<div class= "panel panel-primary">
+    <div class = "panel-heading">
+        <center><h4 class = "myprofiletitle">User Management</h4></center>
+    </div>
+    <div class ="table-responsive">
+    <table class = "table table-sm">
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>E-mail</th>
+        </tr>
+        <tr ng-repeat="person in management.users | filter: advancedSearchFilter | limitTo: management.searchLimit | orderBy: management.sort">
+            <td>{{person.name}}</td>
+            <td>{{person.username}}</td>
+            <td>{{person.email}}</td>
+            <td>
+               <a href="/edit/{{person._id}}"> <button ng-show='management.editAccess' type="button" class = "btn btn-sm btn-submit">Edit</button></a>
+                <button ng-show='management.deleteAccess' ng-click ="management.deleteUser(person.username);" type="button" class = "btn btn-sm btn-submitdarker">Delete</button>
+            </td>
+        </tr>
+    </table>
+    </div>
+</div>
+
+
+<div class="jumbotron text-center" ng-show="management.loading">
+
+    <span class="glyphicon glyphicon-repeat spin"></span>
+    <p>loading...</p>
+
+</div>
+<br>
+<div class="row show-hide-message"ng-show="management.successMsg">
+    <div class="alert alert-success">{{management.successMsg}}</div>
+    
+</div>
+
+
+</div>
+

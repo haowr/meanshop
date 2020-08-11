@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="store">
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link rel="stylesheet" href = "../../bootstrap.min.css" type = "text/css">
+        
+        <link rel="stylesheet" href  ="../../css/main.css" type ="text/css">
+        <link rel="stylesheet" href = "../../css/styleindex.css" type ="text/css">
+        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
+        <script src ="https://code.jquery.com/jquery-3.1.0.js"></script><!-- load jquery -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script type ="text/javascript" src="../../angular.min.js"></script>
+        <script type ="text/javascript" src="../../angular-route.js"></script>
+        <script type='text/javascript' src='../../js/ng-infinite-scroll.min.js'></script>
+        <script type ="text/javascript" src="../../js/app.js"></script>
+        <script type ="text/javascript" src="../../js/products.js"></script>
+        <script src="https://use.fontawesome.com/b397913843.js"></script>
+    </head>
+
+
+<div ng-controller="RegisterController as register">
+<h1>Registration</h1>
+
+<input ng-model="user.username"/><br/>
+<input ng-model="user.password"/><br/>
+<input ng-model="user.password2"/><br/>
+<button ng-click="register(user)">register</button>
+
+</div>
+</html>

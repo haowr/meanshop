@@ -1,0 +1,147 @@
+<div class="container container-fluid">
+    <br>
+    <div class="page-header">
+        <h4 class="myprofiletitle">User Management</h4>
+    </div>
+
+    <br>
+
+    <ul class="nav nav-tabs">
+        <li class="nav-item" role="presentation" ng-click="edit.namePhase();" ng-class="nameTab"><a class="nav-link" href="#">Name</a></li>
+        <li class="nav-item" role="presentation" ng-click="edit.usernamePhase();" ng-class="usernameTab"> <a class="nav-link" href="#">Username</a></li>
+        <li class="nav-item" role="presentation" ng-click="edit.emailPhase();" ng-class="emailTab"> <a class="nav-link" href="#">E-mail</a></li>
+        <li class="nav-item" role="presentation" ng-click="edit.permissionPhase();" ng-class="permissionTab"> <a class="nav-link" href="#">Permissions</a></li>
+    </ul>
+
+    <!-- PHASE ONE - NAME -->
+    <!-- Phase One: Name Tab -->
+    <form name="edit.nameForm" ng-show="edit.phase1" ng-submit="edit.updateName(newName, edit.nameForm.name.$valid)" novalidate>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <div ng-class="{ 'has-success':(edit.nameForm.name.$valid && !edit.nameForm.name.$pristine), 'has-error':(!edit.nameForm.name.$valid && !edit.nameForm.name.$pristine) || (!nameForm.name.$valid && nameForm.$submitted) }">
+                        <!-- Name Input -->
+                        <label>Current Name:</label>
+                        <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="please enter name" ng-model="newName"
+                            ng-pattern="/^(([a-zA-Z]{3,20})+[ ]+([a-zA-Z]{3,20})+)+$/" ng-minlength="3" ng-maxlength="20" required>
+                        <!-- Name Validation -->
+                        <p class="help-block" ng-show="(!edit.nameForm.name.$pristine && nameForm.name.$error.required) || (edit.nameForm.$submitted && edit.nameForm.name.$error.required)">This field is required</p>
+                        <ul ng-show="(!edit.nameForm.name.$pristine && edit.nameForm.name.$error.pattern) || (!edit.nameForm.name.$pristine && edit.nameForm.name.$error.minlength) || (!edit.nameForm.name.$pristine && edit.nameForm.name.$error.maxlength)"
+                            class="help-block">
+                            <li>Must have a space in between first and last name</li>
+                            <li>Must not contain any special characters</li>
+                            <li>Must not contain any numbers</li>
+                            <li>Must be at least 3 characters but no more than 20</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <!-- Update Button -->
+                    <button ng-disabled="edit.disabled" class="btn btn-submit" type="submit">Update</button>
+
+                </div>
+                 <div class=" show-hide-message" ng-show="edit.successMsg">
+                    <div class="alert alert-success">{{edit.successMsg}}</div>
+                </div>
+                            <div class=" show-hide-message" ng-show="edit.errorMsg">
+                    <div class="alert alert-danger">{{edit.errorMsg}}</div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+    <!-- PHASE ONE - USERNAME -->
+
+    <form name="edit.usernameForm" ng-show="edit.phase2" ng-submit="edit.updateUsername(newUsername, edit.usernameForm.username.$valid)"
+        novalidate>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <div ng-class="{ 'has-success':(edit.usernameForm.username.$valid && !edit.usernameForm.username.$pristine), 'has-error':(!edit.usernameForm.username.$valid && !edit.usernameForm.username.$pristine) || (!edit.usernameForm.username.$valid && edit.usernameForm.$submitted)}">
+                        <!-- Username Input -->
+                        <label>Current Username:</label>
+                        <input ng-disabled="register.disabled" class="form-control" type="text" name="username" placeholder="please enter username"
+                            ng-model="newUsername" ng-minlength="3" ng-maxlength="25" ng-pattern="/^(?!.*?[\W])(?=.*?[a-zA-Z]|=.*?[A-Z]).{3,16}$/"
+                            required>
+                        <!-- Username Validation -->
+                        <p class="help-block" ng-show="(!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.required) || (edit.usernameForm.$submitted && edit.usernameForm.username.$error.required)">This field is required</p>
+                        <span ng-show="register.checkingUsername && edit.usernameForm.username.$valid" class="glyphicon glyphicon-repeat"></span>
+                        <p class="help-block" ng-show="register.usernameMsg && !edit.usernameForm.username.$error.required && edit.usernameForm.username.$valid">{{ register.usernameMsg }}</p>
+                        <ul ng-show="(!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.pattern) || (!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.minlength) || (!edit.usernameForm.username.$pristine && edit.usernameForm.username.$error.maxlength)"
+                            class="help-block">
+                            <li>Must not contain any special characters or spaces</li>
+                            <li>Must be at least 3 characters but no more than 25</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <!-- Update Button -->
+                    <button ng-disabled="edit.disabled" class="btn btn-submit" type="submit">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+    <!-- PHASE ONE - E-MAIL -->
+    <form name="edit.emailForm" ng-show="edit.phase3" ng-submit="edit.updateEmail(newEmail, edit.emailForm.email.$valid)" novalidate>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="col-md-6">
+                    <div ng-class="{ 'has-success':(edit.emailForm.email.$valid && !edit.emailForm.email.$pristine), 'has-error':(!edit.emailForm.email.$valid && !edit.emailForm.email.$pristine) || (!edit.emailForm.email.$valid && edit.emailForm.$submitted) }">
+                        <!-- Email Input -->
+                        <label>Current Email:</label>
+                        <input ng-disabled="edit.disabled" class="form-control" type="text" name="email" placeholder="please enter email" ng-model="newEmail"
+                            ng-minlength="3" ng-maxlength="25" ng-pattern="/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/" required>
+                        <!-- Email Validation -->
+                        <p class="help-block" ng-show="(!edit.emailForm.email.$pristine && edit.emailForm.email.$error.required) || (edit.emailForm.$submitted && edit.emailForm.email.$error.required)">This field is required</p>
+                        <span ng-show="edit.checkingEmail && edit.emailForm.email.$valid" class="glyphicon glyphicon-repeat"></span>
+                        <p class="help-block" ng-show="edit.emailMsg && !edit.emailForm.email.$error.required && edit.emailForm.email.$valid">{{ edit.emailMsg }}</p>
+                        <ul ng-show="(!edit.emailForm.email.$pristine && edit.emailForm.email.$error.pattern) || (!edit.emailForm.email.$pristine && edit.emailForm.email.$error.minlength) || (!edit.emailForm.email.$pristine && edit.emailForm.email.$error.maxlength)"
+                            class="help-block">
+                            <li>Must contain "@"</li>
+                            <li>Must not contain any special characters</li>
+                            <li>Must be at least 3 characters but no more than 25</li>
+                        </ul>
+                    </div>
+                    <br>
+                    <!-- Update Button -->
+                    <button ng-disabled="edit.disabled" class="btn btn-submit" type="submit">Update</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+    <!-- PHASE ONE - PERMISSIONS -->
+    <div ng-show="edit.phase4">
+        <div class = "row">
+            <div class = "col-sm-12">
+        <label>Current Permission:&nbsp&nbsp </label>{{ newPermission }}
+        <br>
+        <br>
+        <!-- User Permission Button -->
+        <button ng-disabled="edit.disableUser" ng-click="edit.updatePermissions('user');" type="button" class="btn btn-success">User</button>&nbsp
+        <!-- Moderator Permission Button -->
+        <button ng-disabled="edit.disableModerator" ng-click="edit.updatePermissions('moderator');" type="button" class="btn btn-info">Moderator</button>&nbsp
+        <!-- Admin Permission Button -->
+        <button ng-disabled="edit.disableAdmin" ng-click="edit.updatePermissions('admin');" type="button" class="btn btn-warning">Admin</button>
+            <div class=" show-hide-message" ng-show="edit.successMsg">
+                    <div class="alert alert-success">{{edit.successMsg}}</div>
+                </div>
+                            <div class=" show-hide-message" ng-show="edit.errorMsg">
+                    <div class="alert alert-danger">{{edit.errorMsg}}</div>
+                </div>
+    </div>
+        </div>
+    </div>
+</div>

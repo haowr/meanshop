@@ -1,0 +1,66 @@
+<br>
+        <div class ="row">
+                <div class="col-sm-12">
+                        <center><h1 class = "myprofiletitle">One Click Checkout</h1></center>
+                </div>
+                <div class="col-sm-12 details2">
+                </div>
+        </div>
+<div class = "container container-fluid">
+
+    <div class = "row">
+    <div class = "col-sm-4 billingaddressstyling">
+            <br>
+                    <h3 id="billingaddresstitles" class = "bellefair">Billing Address:<h3>
+                     <p class = "billingaddressstylingp">First Name:<span class="secondarytextaddresses"> {{storedFormData[0].name}}</span></p>
+                     <p class = "billingaddressstylingp">Last Name:<span class="secondarytextaddresses"> {{storedFormData[0].lastname}}</span></p>
+                     <p class = "billingaddressstylingp">Street Address:<span class="secondarytextaddresses"> {{storedFormData[0].streetaddress}}</span></p>
+                     <p class = "billingaddressstylingp">Apt:<span class="secondarytextaddresses"> {{storedFormData[0].apt}}</span></p>
+                     <p class = "billingaddressstylingp">City:<span class="secondarytextaddresses"> {{storedFormData[0].city}}</span></p>
+                     <p class = "billingaddressstylingp">Province:<span class="secondarytextaddresses"> {{storedFormData[0].province}}</span></p>
+                     <p class = "billingaddressstylingp">Postal Code:<span class="secondarytextaddresses"> {{storedFormData[0].postalcode}}</span></p>
+                     <p class = "billingaddressstylingp ">Phone Number:<span class="secondarytextaddresses"> {{storedFormData[0].phonenumber}}</span></p>
+                    </div>
+            
+        <div class ="col-sm-4 billingaddressstyling">
+            <br>
+            
+                    <h3 id="shippingaddresstitles" class = "bellefair">Shipping Address:<h3>
+                     <p class = "billingaddressstylingp">First Name:<span class="secondarytextaddresses"> {{storedFormData[1].name}}</span></p>
+                     <p class = "billingaddressstylingp">Last Name:<span class="secondarytextaddresses"> {{storedFormData[1].lastname}}</span></p>
+                     <p class = "billingaddressstylingp">Street Address:<span class="secondarytextaddresses"> {{storedFormData[1].streetaddress}}</span></p>
+                     <p class = "billingaddressstylingp">Apt:<span class="secondarytextaddresses"> {{storedFormData[1].apt}}</span></p>
+                     <p class = "billingaddressstylingp">City:<span class="secondarytextaddresses"> {{storedFormData[1].city}}</span></p>
+                     <p class = "billingaddressstylingp">Province:<span class="secondarytextaddresses"> {{storedFormData[1].province}}</span></p>
+                     <p class = "billingaddressstylingp">Postal Code: <span class="secondarytextaddresses">{{storedFormData[1].postalcode}}</span></p>
+                     <p class = "billingaddressstylingp">Phone Number:<span class="secondarytextaddresses"> {{storedFormData[1].phonenumber}}</span></p>
+                    </div>
+                         <div class ="col-sm-4 billingaddressstyling">
+            <br>
+            
+                    <h3 id="shippingaddresstitles" class = "bellefair">Credit Card Information:<h3>
+                     <p class = "billingaddressstylingp">Card Name:<span class="secondarytextaddresses"> {{storedFormData[2].cardname}}</span></p>
+                     <p class = "billingaddressstylingp">Expiry Month:<span class="secondarytextaddresses"> {{storedFormData[2].expmonth}}</span></p>
+                     <p class = "billingaddressstylingp">Expiry Date:<span class="secondarytextaddresses"> {{storedFormData[2].expyear}}</span></p>
+                     <p class = "billingaddressstylingp">Security Code:<span class="secondarytextaddresses"> {{storedFormData[2].securitycode}}</span></p>
+                     </div>
+    </div>
+    <center>
+        <form stripe-checkout-jquery-one-click stored-form-data = "storedFormData" tax-x="tax" grand-total="grandTotal" total-after-tax="totalAfterTax" payment-loading="paymentLoading"><button type = "submit"class = "btn btn-submit">Submit Order</button>
+                     <div id="paymentloading"ng-show="paymentLoading">
+                    <center><h3 class = "secondarytext">LOADING</h3></center>
+                    <center> <i id="loveLoader"  class="fa fa-spinner fa-spin fa-3x fa-fw secondarytextsimple"></i></center>
+                </div>
+        </form>
+                   
+        </center>
+        <br>
+        <br>
+                <div class ="row">
+                <div class="col-sm-12 details2">
+                       
+                </div>
+        </div>
+        <br>
+        <br>
+</div>

@@ -1,0 +1,592 @@
+<br>
+<div class = "container container-fluid">
+
+       <div class = "row">
+
+            <div class = "col-sm-12 ">
+               <center><h2 id ="maintitle">THE HOUSE OF JEWELS</h2></center>
+                <center><img src="../img/logosm.jpg"></center>
+            </div>
+            <div class = "col-sm-12 details">
+            </div>
+
+            <div class = "col-sm-8 shoppingbagtitle">
+                <br>
+                <h3 id ="checkouttitlestyling">Checkout</h3>
+
+                
+                <p>Need help?</p>
+                <p> Please, <a href ='/faq'>Visit the FAQ</a></p>
+                
+                <button ng-click="startCheckoutFunc();"class = "btn btn-submit">Begin Checkout</button>
+                <br>
+                       
+              
+            </div>
+            <div class = "col-sm-4"> 
+                <br>
+                
+                <div id = "oneclickid"ng-show="wouldYouLikeToUse && shoppingBagShoes.length >0">
+                    
+                    <center><h4 class = "bellefair">Hey, {{currentUser}}!</h4><p> Your Details Are Stored... Would You like to Use One Click Checkout?</p>
+                            <button class = "btn btn-sm btn-submit" ng-click ="checkOutFunc2();">Yes</button>&nbsp<button class = "btn btn-sm btn-submit" ng-click = "oneClickCheckout(2);">No</button>
+                    </center>
+
+                </div>
+            </div>
+       </div>
+                
+<div class = "row" ng-show="shoppingBagShoes.length <= 0">
+    <div class = "col-sm-12">
+        <br>
+        <center><p>(Cart Empty)</p></center>
+       <center> <p>Please visit our <a href='/shop'><strong>Shop</strong></a> add items to your cart!</p></center>
+    </div>
+</div>
+<div ng-show ='!startCheckout'>
+<br>
+<br>
+<br>
+</div>
+
+<div ng-show ="startCheckout && shoppingBagShoes.length > 0" class ="startCheckout">
+              <br>
+
+              <div class ="row">
+                  <div class ="col-sm-4 " >
+                      <!--<h3><p>Checkout ng-show="showGrandTotal"</p></h3>-->
+                    <h3  id = "ordersummarystyling">Grand Total: </h3><p class = "secondarytextsimple" id="grandtotaltext">{{totalAfterTax | currency}}</p>
+
+                  </div>
+                  <div class = "col-sm-4">
+                  </div>
+                  <div class ="col-sm-4 ">
+                    <h3 id ="ordersummarystyling">Order Summary: </h3> <p class = "secondarytextsimple"><ng-pluralize count="orderItems" when="{'one': '1 item.',
+                                                                                    'other': '{} items.'}">
+                                                                                    </ng-pluralize></p>
+
+                  </div>
+              </div>
+              <div class = "row">
+
+                  <div class = "col-sm-12 details2">
+                  </div>
+            </div>
+                <!--  <div class = "row">
+                    <div ng-show="useBillingAddressSelected" class = "col-sm-8 wouldyouliketouse">
+                        <br> 
+                        <h4>Would you like to ship to this address, as well?</h4>
+                        <button ng-click="useBillingAddress();" class = "btn btn-submit">Yes!</button> &nbsp<button ng-click="addShippingAddress();"class = "btn btn-submit">No!</button>
+                    </div>
+                   <div class= "col-sm-4 ">
+                       
+                   </div>
+                    <div ng-show = "finalCheckoutButton" class = "col-sm-12 finalcheckout" id="finalcheckoutbutton">
+                        <h3 class="smallerh3">Continue To Final Checkout!</h3>
+                        <button ng-click="finalCheckout();" class = "btn btn-submit">Continue</button> 
+                    </div>
+                    
+                  </div>
+            -->
+              
+
+
+
+              <br>
+              <div class = "row">
+            
+<div ng-show="!checkoutPhase && useBillingAddressSelected" class = "col-sm-8 wouldyouliketouse">
+                         
+                         <!-- col-sm-12 -->
+                        <p>Would you like to ship to this address, as well?</p>
+                        <button ng-click="useBillingAddress();" class = "btn btn-submit">Yes!</button> &nbsp<button ng-click="addShippingAddress();"class = "btn btn-submitdarker">No!</button>
+                    <br>
+                    <br>
+</div>
+<div ng-show="checkoutPhase"class = "col-sm-8 formstyling">
+                      <form name = "checkoutForm" ng-submit = "checkOutFunc(checkoutFormData, checkoutForm.$valid);" novalidate>
+                      <div class="form-group countryselectsizing ">
+                         
+                            <label for="sel1">Country:</label>
+                            <select name = "country"ng-model="checkoutFormData.country"ng-change="country"class="form-control" id="sel1" required>
+                                <option ng-click="selectCountry(1);">Canada</option>
+                                <option ng-click="selectCountry(2);">United States</option>
+                            </select>
+                      </div>
+                      <div ng-class="{ 'has-success': (checkoutForm.name.$valid && !checkoutForm.name.$pristine), 'has-error':(!checkoutForm.name.$valid && !checkoutForm.name.$pristine)|| (!checkoutForm.name.$valid && checkoutForm.$submitted) }"class = "form-group">
+                            <label>First Name:</label>
+                            <br>
+                            <input type = "textarea" name = "name" ng-model="checkoutFormData.name"placeholder="Name..."ng-minLength="3" ng-maxLength="20"required ></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.name.$pristine && checkoutForm.name.$error.minlength) || (!checkoutForm.name.$pristine && checkoutForm.name.$error.maxlength)">
+                                <li>First Name must be between 3 and 20 characters long..</li>
+                            </ul>
+                      </div>
+                      <div ng-class="{ 'has-success': (checkoutForm.lastname.$valid && !checkoutForm.lastname.$pristine), 'has-error':(!checkoutForm.lastname.$valid && !checkoutForm.lastname.$pristine)|| (!checkoutForm.lastname.$valid && checkoutForm.$submitted) }" class = "form-group">
+                            <label>Last Name:</label>
+                            <br>
+                            <input type = "textarea" name ="lastname" ng-model = "checkoutFormData.lastname" ng-minLength="1" ng-maxLength="20" placeholder="Name..." required></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.lastname.$pristine && checkoutForm.lastname.$error.minlength) || (!checkoutForm.lastname.$pristine && checkoutForm.lastname.$error.maxlength)">
+                                <li>Last Name must be between 3 and 20 characters long..</li>
+                            </ul>
+                      </div>
+                        
+                                <!-- Email Div -->
+                                <div class = "form-group" ng-class="{ 'has-success':(checkoutForm.email.$valid && !checkoutForm.email.$pristine && !emailInvalid), 'has-error':(!checkoutForm.email.$valid && !checkoutForm.email.$pristine) || (!checkoutForm.email.$valid && checkoutForm.$submitted) || emailInvalid }">
+                                    <!-- Email Input -->
+                                    <label>Email:</label>
+                                    <br>
+                                    <input ng-disabled="disabled" type="text" name="email" placeholder="E-mail..." ng-model="checkoutFormData.email" ng-minlength="3" ng-maxlength="40" ng-pattern="/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/"  required>
+                                    <!-- Email Validation -->
+                                    <p class="help-block" ng-show="(!checkoutForm.email.$pristine && checkoutForm.email.$error.required) || (checkoutForm.$submitted && checkoutForm.email.$error.required)">This field is required</p>
+                                    <span ng-show="checkingEmail && checkoutForm.email.$valid" class="glyphicon glyphicon-repeat"></span>
+                                    <p class="help-block" ng-show="emailMsg && !checkoutForm.email.$error.required && checkoutForm.email.$valid">{{ emailMsg }}</p>
+                                    <ul ng-show="(!checkoutForm.email.$pristine && checkoutForm.email.$error.pattern) || (!checkoutForm.email.$pristine && checkoutForm.email.$error.minlength) || (!checkoutForm.email.$pristine && checkoutForm.email.$error.maxlength)" class="help-block">
+                                        <li>Must contain "@"</li>
+                                        <li>Must not contain any special characters</li>
+                                        <li>Must be at least 3 characters but no more than 25</li>
+                                    </ul>
+                                </div>
+                            
+                     <!--<div ng-class="{ 'has-success': (checkoutForm.email.$valid && !checkoutForm.email.$pristine), 'has-error':(!checkoutForm.email.$valid && !checkoutForm.email.$pristine)|| (!checkoutForm.email.$valid && checkoutForm.$submitted) }" class = "form-group">
+                            <label>Email:</label>
+                            <br>
+                            <input type = "textarea" name ="email" ng-model = "checkoutFormData.email" ng-minLength="1" ng-maxLength="50" placeholder="Name..." required></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.lastname.$pristine && checkoutForm.lastname.$error.minlength) || (!checkoutForm.lastname.$pristine && checkoutForm.lastname.$error.maxlength)">
+                                <li>Last Name must be between 3 and 20 characters long..</li>
+                            </ul>
+                      </div>-->
+                    <div ng-class="{ 'has-success': (checkoutForm.lastname.$valid && !checkoutForm.lastname.$pristine), 'has-error':(!checkoutForm.lastname.$valid && !checkoutForm.lastname.$pristine)|| (!checkoutForm.lastname.$valid && checkoutForm.$submitted) }" class = "form-group">
+
+                            <label>Street Address:</label>
+                            <br>
+                            <input type = "textarea" name ="streetaddress" ng-model="checkoutFormData.streetaddress"  placeholder="Street Address..." required></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.streetaddress.$pristine && checkoutForm.streetaddress.$error.minlength) || (!checkoutForm.streetaddress.$pristine && checkoutForm.streetaddress.$error.maxlength)">
+                                <li>Please enter adddress..</li>
+                            </ul>
+                    </div>
+                    <div ng-class="{ 'has-success': (!checkoutForm.streetaddress2.$pristine || checkoutForm.streetaddress2.$pristine )}" class = "form-group">
+                            <label>Street Address 2:</label>
+                            <br>
+                            <input type = "textarea" name ="streetaddress2" ng-model="checkoutFormData.streetaddress2"  placeholder="Street Address 2(optional)..." required></input>
+
+                    </div>
+                    <div ng-class="{ 'has-success': (checkoutForm.apt.$valid && !checkoutForm.apt.$pristine), 'has-error':(!checkoutForm.apt.$valid && !checkoutForm.apt.$pristine)|| (!checkoutForm.apt.$valid && checkoutForm.$submitted) }"class =" form-group">
+                            <label>Apt:</label>
+                            <br>
+                            <input type = "textarea" name ="apt" ng-model="checkoutFormData.apt"  placeholder="Apt(optional)" required></input>
+
+                    </div>
+                    <div ng-class="{ 'has-success': (checkoutForm.city.$valid && !checkoutForm.city.$pristine), 'has-error':(!checkoutForm.city.$valid && !checkoutForm.city.$pristine)|| (!checkoutForm.city.$valid && checkoutForm.$submitted) }"class = "form-group">
+                            <label>City:</label>
+                            <br>
+                            <input type = "textarea" name = "city" ng-model="checkoutFormData.city" placeholder="City..." required></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.city.$pristine && !checkoutForm.city.$valid) ">
+                                <li>Please enter city..</li>
+                            </ul>
+                    </div>
+                    
+                    <div class="form-group countryselectsizing">
+                            <div ng-show="country == 'Canada'">
+                                <label for="sel1">Province:</label>
+                                <select ng-model="checkoutFormData.province" name="province"class="form-control" id="sel1" required >
+                                    <option>Alberta</option>
+                                    <option>British Columbia</option>
+                                    <option>Saskatchewan</option>
+                                    <option>Manitoba</option>
+                                    <option>Quebec</option>
+                                    <option>Ontario</option>
+                                    <option>New Brunswick</option>
+                                    <option>Newfoundland</option>
+                                    <option>Nova Scotia</option>
+                                    <option>Nwt</option>
+                                </select>
+                            </div>
+                             <ul class ="help-block" ng-show=" (!checkoutForm.province.$pristine && !checkoutForm.province.$valid) ">
+                                <li>Please Enter Province..</li>
+                            </ul>
+                    </div>
+                    <div class = "form-group countryselectsizing">
+                            <div ng-show="country == 'United States'">
+                                <label for="sel1">State:</label>
+                                <select  ng-model="checkoutFormData.state" name="state"class="form-control" id="sel1"  >
+                                    <option value="AL">Alabama</option>
+	                                <option value="AK">Alaska</option>
+	                                <option value="AZ">Arizona</option>
+	                                <option value="AR">Arkansas</option>
+	                                <option value="CA">California</option>
+	                                <option value="CO">Colorado</option>
+	                                <option value="CT">Connecticut</option>
+	                                <option value="DE">Delaware</option>
+	                                <option value="DC">District Of Columbia</option>
+	                                <option value="FL">Florida</option>
+	                                <option value="GA">Georgia</option>
+	                                <option value="HI">Hawaii</option>
+	                                <option value="ID">Idaho</option>
+	                                <option value="IL">Illinois</option>
+	                                <option value="IN">Indiana</option>
+	                                <option value="IA">Iowa</option>
+	                                <option value="KS">Kansas</option>
+	                                <option value="KY">Kentucky</option>
+	                                <option value="LA">Louisiana</option>
+	                                <option value="ME">Maine</option>
+	                                <option value="MD">Maryland</option>
+	                                <option value="MA">Massachusetts</option>
+	                                <option value="MI">Michigan</option>
+	                                <option value="MN">Minnesota</option>
+	                                <option value="MS">Mississippi</option>
+	                                <option value="MO">Missouri</option>
+	                                <option value="MT">Montana</option>
+	                                <option value="NE">Nebraska</option>
+	                                <option value="NV">Nevada</option>
+	                                <option value="NH">New Hampshire</option>
+	                                <option value="NJ">New Jersey</option>
+	                                <option value="NM">New Mexico</option>
+	                                <option value="NY">New York</option>
+	                                <option value="NC">North Carolina</option>
+	                                <option value="ND">North Dakota</option>
+	                                <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+	                                <option value="OR">Oregon</option>
+	                                <option value="PA">Pennsylvania</option>
+	                                <option value="RI">Rhode Island</option>
+	                                <option value="SC">South Carolina</option>
+	                                <option value="SD">South Dakota</option>
+	                                <option value="TN">Tennessee</option>
+	                                <option value="TX">Texas</option>
+	                                <option value="UT">Utah</option>
+	                                <option value="VT">Vermont</option>
+	                                <option value="VA">Virginia</option>
+	                                <option value="WA">Washington</option>
+	                                <option value="WV">West Virginia</option>
+	                                <option value="WI">Wisconsin</option>
+	                                <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div ng-class="{ 'has-success': (checkoutForm.postalcode.$valid && !checkoutForm.postalcode.$pristine), 'has-error':(!checkoutForm.postalcode.$valid && !checkoutForm.postalcode.$pristine)|| (!checkoutForm.postalcode.$valid && checkoutForm.$submitted) }"ng-show="country == 'Canada'"class = "form-group">
+                            <label>Postal Code:</label>
+                            <br>
+                            <input type= "textarea" ng-model="checkoutFormData.postalcode" name="postalcode" placeholder="Postal Code..." required ></input>
+                             <ul class ="help-block" ng-show=" (!checkoutForm.postalcode.$pristine && !checkoutForm.postalcode.$valid) ">
+                                <li>Please Enter Postal Code..</li>
+                            </ul>
+                    </div>
+                    <div ng-class="{ 'has-success': (checkoutForm.zipcode.$valid && !checkoutForm.zipcode.$pristine), 'has-error':(!checkoutForm.zipcode.$valid && !checkoutForm.zipcode.$pristine)|| (!checkoutForm.zipcode.$valid && checkoutForm.$submitted) }"ng-show="country == 'United States'"class = "form-group">
+                            <label>Zip Code:</label>
+                            <br>
+                            <input type= "textarea" ng-model="checkoutFormData.zipcode" name="zipcode"placeholder="Postal Code..." ></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.zipcode.$pristine && !checkoutForm.zipcode.$valid) ">
+                                <li>Please Enter Zip Code..</li>
+                            </ul>
+                    </div>
+                    <div ng-class="{ 'has-success': (checkoutForm.phonenumber.$valid && !checkoutForm.phonenumber.$pristine), 'has-error':(!checkoutForm.phonenumber.$valid && !checkoutForm.phonenumber.$pristine)|| (!checkoutForm.phonenumber.$valid && checkoutForm.$submitted) }"class = "form-group">
+                            <label>Phone Number:</label>
+                            <br>
+                            <input type= "textarea"ng-model="checkoutFormData.phonenumber"name="phonenumber" placeholder="Postal Code..." required></input>
+                            <ul class ="help-block" ng-show=" (!checkoutForm.phonenumber.$pristine && !checkoutForm.phonenumber.$valid) ">
+                                <li>Please Enter Phone Number..</li>
+                            </ul>
+                    </div>
+                    {{$valid}}
+                    <button class ="btn btn-submit"type="submit">Continue</button>
+                    <p id = "formerrorstyling" ng-show="invalid">{{errorMsg}}</p>
+                        </form>
+                    </div>
+                    
+                    <div ng-show="shipPhase && addNewShippingAddress "class = "col-sm-8 formstyling">
+                      <form name = "shippingForm" ng-submit = "shippingFunc(shippingFormData, shippingForm.$valid);" novalidate>
+                      <div class="form-group countryselectsizing ">
+                         
+                            <label for="sel1">Country:</label>
+                            <select name = "country"ng-model="shippingFormData.country"ng-change="country"class="form-control" id="sel1">
+                                <option ng-click="selectCountry(1);">Canada</option>
+                                <option ng-click="selectCountry(2);">United States</option>
+                            </select>
+                      </div>
+                      <div ng-class="{ 'has-success': (shippingForm.name.$valid && !shippingForm.name.$pristine), 'has-error':(!shippingForm.name.$valid && !shippingForm.name.$pristine)|| (!shippingForm.name.$valid && shippingForm.$submitted) }"class = "form-group">
+                            <label>First Name:</label>
+                           
+                            <br>
+                            <input    type = "textarea" name = "name" ng-model="shippingFormData.name"placeholder="Name..."ng-minLength="3" ng-maxLength="20" required></input>
+                      </div>
+                      <div ng-class="{ 'has-success': (shippingForm.lastname.$valid && !shippingForm.lastname.$pristine), 'has-error':(!shippingForm.lastname.$valid && !shippingForm.lastname.$pristine)|| (!shippingForm.lastname.$valid && shippingForm.$submitted) }" class = "form-group">
+                            <label>Last Name:</label>
+                            <br>
+                            <input type = "textarea" name ="lastname" ng-model = "shippingFormData.lastname" ng-minLength="3" ng-maxLength="20" placeholder="Name..." required></input>
+                      </div>
+ 
+                    <div ng-class="{ 'has-success': (shippingForm.lastname.$valid && !shippingForm.lastname.$pristine), 'has-error':(!shippingForm.lastname.$valid && !shippingForm.lastname.$pristine)|| (!shippingForm.lastname.$valid && shippingForm.$submitted) }" class = "form-group">
+
+                            <label>Street Address:</label>
+                            <br>
+                            <input type = "textarea" name ="streetaddress" ng-model="shippingFormData.streetaddress"  placeholder="Street Address..." required></input>
+                    </div>
+                    <div ng-class="{ 'has-success': (shippingForm.lastname.$valid && !shippingForm.lastname.$pristine), 'has-error':(!shippingForm.lastname.$valid && !shippingForm.lastname.$pristine)|| (!shippingForm.lastname.$valid && shippingForm.$submitted) }"class = "form-group">
+                            <label>Street Address 2:</label>
+                            <br>
+                            <input type = "textarea" name ="streetaddress2" ng-model="shippingFormData.streetaddress2"  placeholder="Street Address 2(optional)..."></input>
+                    </div>
+                    <div ng-class="{ 'has-success': (shippingForm.apt.$valid && !shippingForm.apt.$pristine), 'has-error':(!shippingForm.apt.$valid && !shippingForm.apt.$pristine)|| (!shippingForm.apt.$valid && shippingForm.$submitted) }"class =" form-group">
+                            <label>Apt:</label>
+                            <br>
+                            <input type = "textarea" name ="apt" ng-model="shippingFormData.apt"  placeholder="Apt(optional)" ></input>
+                    </div>
+                    <div ng-class="{ 'has-success': (shippingForm.city.$valid && !shippingForm.city.$pristine), 'has-error':(!shippingForm.city.$valid && !shippingForm.city.$pristine)|| (!shippingForm.city.$valid && shippingForm.$submitted) }"class = "form-group">
+                            <label>City:</label>
+                            <br>
+                            <input type = "textarea" name = "city" ng-model="shippingFormData.city" placeholder="City..." required></input>
+                    </div>
+                    
+                    <div class="form-group countryselectsizing">
+                            <div ng-show="country == 'Canada'">
+                                <label for="sel1">Province:</label>
+                                <select ng-model="shippingFormData.province" name="province"class="form-control" id="sel1" required>
+                                    <option>Alberta</option>
+                                    <option>British Columbia</option>
+                                    <option>Saskatchewan</option>
+                                    <option>Manitoba</option>
+                                    <option>Quebec</option>
+                                    <option>Ontario</option>
+                                    <option>New Brunswick</option>
+                                    <option>Newfoundland</option>
+                                    <option>Nova Scotia</option>
+                                    <option>Nwt</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div class = "form-group countryselectsizing">
+                            <div ng-show="country == 'United States'">
+                                <label for="sel1">State:</label>
+                                <select  ng-model="shippingFormData.state" name="state"class="form-control" id="sel1" required>
+                                    <option value="AL">Alabama</option>
+	                                <option value="AK">Alaska</option>
+	                                <option value="AZ">Arizona</option>
+	                                <option value="AR">Arkansas</option>
+	                                <option value="CA">California</option>
+	                                <option value="CO">Colorado</option>
+	                                <option value="CT">Connecticut</option>
+	                                <option value="DE">Delaware</option>
+	                                <option value="DC">District Of Columbia</option>
+	                                <option value="FL">Florida</option>
+	                                <option value="GA">Georgia</option>
+	                                <option value="HI">Hawaii</option>
+	                                <option value="ID">Idaho</option>
+	                                <option value="IL">Illinois</option>
+	                                <option value="IN">Indiana</option>
+	                                <option value="IA">Iowa</option>
+	                                <option value="KS">Kansas</option>
+	                                <option value="KY">Kentucky</option>
+	                                <option value="LA">Louisiana</option>
+	                                <option value="ME">Maine</option>
+	                                <option value="MD">Maryland</option>
+	                                <option value="MA">Massachusetts</option>
+	                                <option value="MI">Michigan</option>
+	                                <option value="MN">Minnesota</option>
+	                                <option value="MS">Mississippi</option>
+	                                <option value="MO">Missouri</option>
+	                                <option value="MT">Montana</option>
+	                                <option value="NE">Nebraska</option>
+	                                <option value="NV">Nevada</option>
+	                                <option value="NH">New Hampshire</option>
+	                                <option value="NJ">New Jersey</option>
+	                                <option value="NM">New Mexico</option>
+	                                <option value="NY">New York</option>
+	                                <option value="NC">North Carolina</option>
+	                                <option value="ND">North Dakota</option>
+	                                <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+	                                <option value="OR">Oregon</option>
+	                                <option value="PA">Pennsylvania</option>
+	                                <option value="RI">Rhode Island</option>
+	                                <option value="SC">South Carolina</option>
+	                                <option value="SD">South Dakota</option>
+	                                <option value="TN">Tennessee</option>
+	                                <option value="TX">Texas</option>
+	                                <option value="UT">Utah</option>
+	                                <option value="VT">Vermont</option>
+	                                <option value="VA">Virginia</option>
+	                                <option value="WA">Washington</option>
+	                                <option value="WV">West Virginia</option>
+	                                <option value="WI">Wisconsin</option>
+	                                <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                    </div>
+                    <div ng-class="{ 'has-success': (shippingForm.postalcode.$valid && !shippingForm.postalcode.$pristine), 'has-error':(!shippingForm.postalcode.$valid && !shippingForm.postalcode.$pristine)|| (!shippingForm.postalcode.$valid && shippingForm.$submitted) }"ng-show="country == 'Canada'"class = "form-group">
+                            <label>Postal Code:</label>
+                            <br>
+                            <input type= "textarea" ng-model="shippingFormData.postalcode" name="postalcode" placeholder="Postal Code..." required></input>
+                    </div>
+                    <div ng-class="{ 'has-success': (shippingForm.zipcode.$valid && !shippingForm.zipcode.$pristine), 'has-error':(!shippingForm.zipcode.$valid && !shippingForm.zipcode.$pristine)|| (!shippingForm.zipcode.$valid && shippingForm.$submitted) }"ng-show="country == 'United States'"class = "form-group">
+                            <label>Zip Code:</label>
+                            <br>
+                            <input type= "textarea" ng-model="shippingFormData.zipcode" name="zipcode"placeholder="Postal Code..." required></input>
+                    </div>
+                    <div ng-class="{ 'has-success': (shippingForm.phonenumber.$valid && !shippingForm.phonenumber.$pristine), 'has-error':(!shippingForm.phonenumber.$valid && !shippingForm.phonenumber.$pristine)|| (!shippingForm.phonenumber.$valid && shippingForm.$submitted) }"class = "form-group">
+                            <label>Phone Number:</label>
+                            <br>
+                            <input type= "textarea"ng-model="shippingFormData.phonenumber"name="phonenumber" placeholder="Postal Code..." required></input>
+                    </div>
+                      <button class ="btn btn-submit"type="submit">Continue</button>
+                      <p id = "formerrorstyling" ng-show="invalid">{{errorMsg}}</p>
+                    
+                        </form>
+                    </div>
+
+                    
+                    <div ng-show="ccPhase"class = "col-sm-8 formstyling">
+             <form stripe-checkout-jquery add-credit-card-func="addCreditCardFunc(creditFormData, creditForm.$valid);" final-checkout-data="finalCheckoutData" total-after-tax="totalAfterTax" tax-x="tax" grand-total="grandTotal"  payment-loading="paymentLoading"name = "creditForm"  id="ccFormReqValidation" novalidate>
+                <h3> Payment</h3>
+                <!--<div ng-show="paymentLoading">
+                    <center><h3>LOADING</h3></center>
+                    <center> <i id="loveLoader"  class="fa fa-spinner fa-spin fa-3x fa-fw secondarytextsimple"></i></center>
+                </div>-->
+                <div id = "charge-error"class = "alert alert-danger hidden">
+
+                </div>
+                                      <div ng-class="{ 'has-success': (creditForm.name.$valid && !creditForm.name.$pristine), 'has-error':(!creditForm.name.$valid && !creditForm.name.$pristine)|| (!creditForm.name.$valid && creditForm.$submitted) }"class = "form-group">
+                            <label>Card Name:</label>
+                            <br>
+                            <input   type = "textarea" name = "name" ng-model="creditFormData.cardname"placeholder="Name..."ng-minLength="3" ng-maxLength="20"required ></input>
+                            <ul class ="help-block" ng-show=" (!creditForm.name.$pristine && creditForm.name.$error.minlength) || (!creditForm.name.$pristine && creditForm.name.$error.maxlength)">
+                                <li>First Name must be between 3 and 20 characters long..</li>
+                            </ul>
+                      </div>
+                                            <div ng-class="{ 'has-success': (creditForm.name.$valid && !creditForm.name.$pristine), 'has-error':(!creditForm.name.$valid && !creditForm.name.$pristine)|| (!creditForm.name.$valid && creditForm.$submitted) }"class = "form-group">
+                            <label>Card Number:</label>
+                            {{cardnumber}}
+                            <br>
+                            <input  ng-disabled="!cardNumberInputDisabled" id="card-number" type = "number" name = "name" ng-model="creditFormData.cardnumber" payments-validate="card"placeholder="TEST MODE NO # REQ.."required ng-disabled></input>
+         
+                      </div>
+                <div class="form-group countryselectsizing ">
+                         
+                            <label for="sel1">Month:</label>
+                            {{expmonth}}
+                            <input  id="card-expiration-month" type = "number" name = "expmonth" ng-model="creditFormData.expmonth" placeholder="Name..."ng-minLength="1" ng-maxLength="2"required ></input>
+
+                
+
+                            <label for="sel2">Year:</label>
+                            {{expyear}}
+                            <input  id="card-expiration-year" type = "number" name = "expyear" ng-model="creditFormData.expyear" placeholder="Name..."ng-minLength="1" ng-maxLength="4" required ></input>
+
+    
+                      <div ng-class="{ 'has-success': (creditForm.securitycode.$valid && !creditForm.securitycode.$pristine), 'has-error':(!creditForm.securitycode.$valid && !creditForm.securitycode.$pristine)|| (!creditForm.securitycode.$valid && creditForm.$submitted) }"class = "form-group">
+                            <label>Security Code:</label>
+                            <br>
+                            <input  id="card-cvc" type = "number" name = "securitycode" ng-model="creditFormData.securitycode" placeholder="Name..."ng-minLength="3" ng-maxLength="5"required ></input>
+                            <ul class ="help-block" ng-show=" (!creditForm.securitycode.$pristine && creditForm.securitycode.$error.minlength) || (!creditForm.securitycode.$pristine && creditForm.securitycode.$error.maxlength)">
+                                <li>First Name must be between 3 and 20 characters long..</li>
+                            </ul> 
+                      </div>
+                      <button  class = "btn btn-submit" type="submit">Submit</button>
+                      <p id = "formerrorstyling" ng-show="invalid">{{errorMsg}}</p>
+                          <!--            <div ng-show="paymentLoading">
+                    
+                    <i   class="fa fa-spinner fa-spin fa-3x fa-fw secondarytextsimple"></i>
+                </div>-->
+                      
+                </div>
+            </form>
+                            <div id="paymentloading"ng-show="paymentLoading">
+                    <center><h3 class = "secondarytext">LOADING</h3></center>
+                    <center> <i id="loveLoader"  class="fa fa-spinner fa-spin fa-3x fa-fw secondarytextsimple"></i></center>
+                </div>
+            </div>
+            
+  <div class = "col-sm-4 ordersummarydiv">
+
+                            <div class= "row" ng-repeat="shoe in shoppingBagShoes">
+                                <div class = "col-sm-3 ordersummarystyling ">
+                                    
+                                    <img class="img-responsive" ng-src="{{shoe.image}}">
+                                
+                                </div>
+                                <div class="col-sm-3 ordersummarystyling">
+                                    <p> Qty| <span class = "ordersummarystyling2 ">{{shoe.amt}}</span></p> 
+                                     
+                  
+                                </div>
+                                <div class = "col-sm-3 ordersummarystyling">
+                                    <p>Size| <span class ="ordersummarystyling2 ">{{shoe.size}}</span></p> 
+                                                                       
+                                </div>
+                                <div class = "col-sm-3 ordersummarystyling">
+                                     <p>Price| <span class ="ordersummarystyling2 "> {{shoe.price |currency}}</span></p>
+                                </div>
+                                     
+                                    
+                            </div>
+                          <!--                     <div class = "row">
+                           <div class ="col-sm-12">
+                               
+                                <center><p id = "formerrorstyling" ng-show="invalid">{{errorMsg}}</p></center>
+                            </div>
+                    </div>-->
+                 </div>
+                 <br>
+                 <!--<div ng-show="showGrandTotal"class = "col-sm-12 pull-left grandtotalstyling" ng-cloak>
+                     <br>
+                     <h3 id = "grandtotalstyling">Grand Total| <h4><p class = "secondarytext" id="grandtotaltext">{{totalAfterTax | currency}}</p></h4></h3>
+                 </div>
+                 -->
+
+
+   
+                    <br>
+                    <br>
+                    <br>
+
+                  
+ 
+        <div class = "col-sm-6 billingaddressstyling">
+            <br>
+                    <h3 id="billingaddresstitles" class = "bellefair">Billing Address:<h3>
+                     <p class = "billingaddressstylingp">First Name:<span class="secondarytextaddresses"> {{checkoutDataa[0].name}}</span></p>
+                     <p class = "billingaddressstylingp">Last Name:<span class="secondarytextaddresses"> {{checkoutDataa[0].lastname}}</span></p>
+                     <p class = "billingaddressstylingp">Street Address:<span class="secondarytextaddresses"> {{checkoutDataa[0].streetaddress}}</span></p>
+                     <p class = "billingaddressstylingp">Apt:<span class="secondarytextaddresses"> {{checkoutDataa[0].apt}}</span></p>
+                     <p class = "billingaddressstylingp">City:<span class="secondarytextaddresses"> {{checkoutDataa[0].city}}</span></p>
+                     <p class = "billingaddressstylingp">Province:<span class="secondarytextaddresses"> {{checkoutDataa[0].province}}</span></p>
+                     <p class = "billingaddressstylingp">Postal Code:<span class="secondarytextaddresses"> {{checkoutDataa[0].postalcode}}</span></p>
+                     <p class = "billingaddressstylingp ">Phone Number:<span class="secondarytextaddresses"> {{checkoutDataa[0].phonenumber}}</span></p>
+                    </div>
+            
+        <div class ="col-sm-6 billingaddressstyling">
+            <br>
+            
+                    <h3 id="shippingaddresstitles" class = "bellefair">Shipping Address:<h3>
+                     <p class = "billingaddressstylingp">First Name:<span class="secondarytextaddresses"> {{shippingFormDataa[0].name}}</span></p>
+                     <p class = "billingaddressstylingp">Last Name:<span class="secondarytextaddresses"> {{shippingFormDataa[0].lastname}}</span></p>
+                     <p class = "billingaddressstylingp">Street Address:<span class="secondarytextaddresses"> {{shippingFormDataa[0].streetaddress}}</span></p>
+                     <p class = "billingaddressstylingp">Apt:<span class="secondarytextaddresses"> {{shippingFormDataa[0].apt}}</span></p>
+                     <p class = "billingaddressstylingp">City:<span class="secondarytextaddresses"> {{shippingFormDataa[0].city}}</span></p>
+                     <p class = "billingaddressstylingp">Province:<span class="secondarytextaddresses"> {{shippingFormDataa[0].province}}</span></p>
+                     <p class = "billingaddressstylingp">Postal Code: <span class="secondarytextaddresses">{{shippingFormDataa[0].postalcode}}</span></p>
+                     <p class = "billingaddressstylingp">Phone Number:<span class="secondarytextaddresses"> {{shippingFormDataa[0].phonenumber}}</span></p>
+                    </div>
+
+           
+            <br>
+            <br>
+                  
+                           
+                        </div>
+                            
+                    </div>
+                    <br>
+            
+            <br>
+            <br>
+                   <div class = "col-sm-12 details2">
+            </div>
+                  </div>
+           
+              </div>
+
+        </div>
+        
+</div>
+       
+</div>

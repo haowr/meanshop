@@ -1,0 +1,238 @@
+<!--
+<script>
+    console.log("script tag working?");
+    const draggable = new Draggable.Draggable(document.querySelectorAll('.logasha'), {
+        draggable: '.logo',
+    });
+    const jewelsz = new Draggable.Draggable(document.querySelectorAll('.jewels'), {
+        draggable: '.jewels'
+    });
+    //console.log(dropbox);
+
+    draggable.on('drag:start', () => console.log('drag:start'));
+    draggable.on('drag:move', () => console.log('drag:move'));
+    draggable.on('drag:stop', function () {
+        console.log('drag:stop');
+
+        //$(".clothes").click();
+        // draggable.cancel();
+
+    });
+    jewelsz.on('drag:over:container', function () {
+        console.log('drag:over:container');
+        $('.logo').css(
+            "display","none"
+        );
+        $(".clothes").click();
+        // draggable.on('drag:stop',function(){
+
+        //   $(".clothes").click();
+
+        //})
+        //draggable.cancel();
+
+    }
+    );
+
+</script>
+-->
+<br>
+<!-- 3 break points added for fixed navigation bar-->
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col-sm-12 ">
+            <center>
+                <h2 id="maintitle">THE HOUSE OF JEWELS</h2>
+            </center>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-sm-4">
+
+        </div>
+
+        <div class="col-sm-12 logasha">
+            <center>
+                <a href="/shop">
+                    <p class="bellefair clothing">CLOTHES&nbsp</p>
+                </a>
+                <img class="logo" src="../img/logosm.jpg">
+                <a class="clothes" href="/shop">
+                    <p class=" bellefair jewels ">&nbsp&nbsp&nbspJEWELS</p>
+                </a>
+            </center>
+            <!-- class = " jewels"-->
+        </div>
+
+
+
+        <div class="col-sm-4">
+
+
+
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 details">
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-sm-12" id="mainimage">
+
+
+            <!-- <img ng-class="{arrowFade: opacityOn2}" class="pull-left img-fluid" src="../img/next-leftL.gif" ng-click="setCurrentSlideIndexSubtract();">-->
+            <!--<center><img ng-src="{{commercials[commercial]}}"class="animate-show" fade-in ></center>-->
+            <center> <a href="/shop"><img 
+                                 ng-src="{{commercial[0]}}"class ="img-fluid"id= "imagefade"></a></center>
+            <!--<img ng-class="{arrowFade: opacityOn}" class="pull-right img-fluid " src="../img/next-rightL.gif" ng-click="setCurrentSlideIndexAdd();">-->
+
+
+
+
+        </div>
+
+
+        <!--
+        <div class="col-sm-12">
+            <center>
+                <h3 id="whatsnewtitle">What's New?</h3>
+            </center>
+        </div>
+   
+    <div class="row">
+        <div class="col-sm-1">
+
+            <center><img src="../img/next-leftL.gif" ng-click="newChange();"></center>
+        </div>
+        <div class="col-sm-10  whatsnewoverflow">
+            <div id="whatsnew">
+                <img ng-src={{longAd[0]}} ng-class="{translate500Y: translateY === 1, translate5002Y:translateY === 2, translate5003Y:translateY === 3,translate500: translate === 1, translate5002:translate === 2, translate5003:translate === 3}">
+            </div>
+        </div>
+        <div class="col-sm-1">
+
+            <center><img src="../img/next-rightL.gif" ng-click="newChangeY();"></center>
+        </div>
+    </div>-->
+
+        <div class="col-sm-12 details2">
+
+        </div>
+
+
+
+        <div class="col-sm-4 sitemap">
+
+            <ul>
+                <li>
+                    <a href="/faq">
+                        <p>Faq</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/returns">
+                        <p>Return Policy</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/contact">
+                        <p>Contact Us</p>
+                    </a>
+                </li>
+            </ul>
+            <br>
+            <br>
+            <br>
+        </div>
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-4 emailsignup ">
+            <center>
+
+                <h4 id="whatsnewtitle">Stay Connected!</h4>
+            </center>
+            <center>
+
+                <p ng-show="emailLoading && !emailEntryFailed" id="emailloading" class="secondarytext">"LOADING.."</p>
+                <p ng-show="emailEntryFailed" class="secondarytext">"You've Already Been Added To The List!"</p>
+                <p ng-show="invalidEmail" class="secondarytext">"Invaid E-mail..."</p>
+            </center>
+
+            <center>
+                <p ng-show="joinOurEmailList" id="emailadded" class="secondarytext">"Join Our Maillist To Receive 10% Off Coupon Code, And Early Bird Savings!"</p>
+            </center>
+            <center>
+                <p ng-show="emailAdded" id="joinourmailingliststyling" class="secondarytext">"Email Added, Check Your Inbox For Confirmation..."</p>
+            </center>
+
+            <form name="emailSignup" ng-submit="addToEmailList(emailListData, emailSignup.$valid);" novalidate>
+
+
+                <div class="form-group">
+                    <!-- Email Div -->
+                    <div ng-class="{ 'has-success':(emailSignup.email.$valid && !emailSignup.email.$pristine && !emailInvalid), 'has-error':(!emailSignup.email.$valid && !emailSignup.email.$pristine) || (!emailSignup.email.$valid && emailSignup.$submitted) || emailInvalid }">
+                        <!-- Email Input -->
+                        <center><label id="emailcodetitlestyling">Email:</label></center>
+                        <input ng-disabled="disabled" class="form-control" type="text" name="email" placeholder="E-mail *" ng-model="emailListData.email"
+                            ng-minlength="3" ng-maxlength="40" ng-pattern="/^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$/"
+                            ng-blur="checkEmail(emailSignupData);" required>
+                        <!-- Email Validation -->
+                        <p class="help-block" ng-show="(!emailSignup.email.$pristine && emailSignup.email.$error.required) || (emailSignup.$submitted && emailSignup.email.$error.required)">This field is required</p>
+                        <span ng-show="checkingEmail && emailSignup.email.$valid" class="glyphicon glyphicon-repeat"></span>
+                        <p class="help-block" ng-show="emailMsg && !emailSignup.email.$error.required && emailSignup.email.$valid">{{ emailMsg }}</p>
+                        <!--<ul ng-show="(!emailSignup.email.$pristine && emailSignup.email.$error.pattern) || (!emailSignup.email.$pristine && emailSignup.email.$error.minlength) || (!emailSignup.email.$pristine && emailSignup.email.$error.maxlength)"
+                            class="help-block">
+                            <li>Must contain "@"</li>
+                            <li>Must not contain any special characters</li>
+                            <li>Must be at least 3 characters but no more than 25</li>
+                        </ul>-->
+                    </div>
+                </div>
+                <center><button class="btn btn-primary emaillistbutton">Sign-up!</button></center>
+
+                <br>
+            </form>
+
+        </div>
+
+
+
+
+        <div class='col-sm-9 '>
+            <br>
+
+            <div class="socialmediaboxes ">
+                <center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px  "class="fa fa-instagram socialmediabuttons" aria-hidden="true"></i></a></center>
+            </div>
+            <div class="socialmediaboxes">
+                <center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px "class="fa fa-facebook socialmediabuttons" aria-hidden="true"></i></a></center>
+            </div>
+            <div class="socialmediaboxes ">
+                <center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px "class="fa fa-twitter socialmediabuttons " aria-hidden="true"></i></a></center>
+            </div>
+            <br>
+        </div>
+        <br>
+        <div class="col-sm-3">
+
+
+        </div>
+
+
+        <div class="col-sm-12 details2">
+        </div>
+
+        <br>
+        <br>
+    </div>
+</div>

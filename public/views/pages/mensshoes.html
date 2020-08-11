@@ -1,0 +1,204 @@
+
+    <br>
+
+<div class = "container container-fluid">
+    <div class = "col-sm-12">
+        <center><h2 class="shoetitlestyling"> ({{mensShoe.name}})</h2></center>
+    </div>
+</div>
+<div class = "container container-fluid">
+<div class = "row">
+    <div class = "col-sm-2 shoesidepanel">
+        <br>
+        <ul class = "img-thumbnails clearfix" ng-repeat ="perspective in mensShoe.perspectives">
+
+            <li ng-click = "imageChange($index);"><img ng-src="{{perspective}}"></li>
+            
+            
+        </ul>
+
+        <!--<landing-gallery></landing-gallery>-->
+    </div>
+    <div id="pan-when-zoomed" class = "col-sm-7 " >
+       <i class="fa fa-plus zoom-in" aria-hidden="true"></i>
+        <i class="fa fa-minus zoom-out" aria-hidden="true"></i>
+        <i class="fa fa-refresh reset" aria-hidden="true"></i>
+                    <div  class = "thumbnails" ng-repeat ="perspective in mensShoe.perspectives">
+
+            <img ng-click = "imageChange($index);" ng-src="{{perspective}}">
+            
+            
+        </div>  
+        
+      <div class="parent">
+     
+        <div class="panzoom">
+       <img  class = "specificmainzoom img-fluid" ng-class="{onepointfive:zoomValue === 1, twotimes: zoomValue === 2, threetimes: zoomValue === 3} " ng-src = "{{mensShoe.fullsize[imageIndex]}}">
+        </div>
+      </div>
+    
+
+
+      
+      <script>
+        (function() {
+          var $section = $('#pan-when-zoomed');
+          $section.find('.panzoom').panzoom({
+            $zoomIn: $section.find(".zoom-in"),
+            $zoomOut: $section.find(".zoom-out"),
+            $zoomRange: $section.find(".zoom-range"),
+            $reset: $section.find(".reset"),
+            panOnlyWhenZoomed: true,
+            minScale: 1
+          });
+        })();
+      </script>
+    
+    </div>
+    <div class = "col-sm-3 shoespecs">
+        <div class ="header">
+            
+            <h3 style="word-wrap:break-word">Description</h3>
+            <p>{{mensShoe.description}}</p>
+            <h3>Price</h3>
+            <p>{{mensShoe.price | currency}}</p>
+            
+            <div class ="sizer">
+               <p>Size: {{size}}</p>
+            </div>
+            <div class ="sizer">
+               <p>Qty: {{amt}} </p>
+               <p ng-show ="noQty">Please Enter An Amount</p>
+              <heart-adder></heart-adder>
+            </div>
+                           
+            
+            
+            <div class = "pull-left sizeselector">
+        
+            
+
+         
+            
+            <div class = "btn-group" role= "group">
+                <button type ="button" class = "btn btn-primary" id="quanititybutton">Qty&nbsp</button>
+                <div class = "btn-group" role= "group">
+                <button  id="btnGroupDrop1" type ="button" class = "btn btn-primary dropdown-toggle" data-toggle="dropdown" >
+                   <!-- <span class = "caret"></span>-->
+                    Toggle Dropdown
+                </button>
+                <ul class = "dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <li class ="dropdown-item" ng-click = "changeQty('1');">1</li>
+                    <li class ="dropdown-item"  ng-click = "changeQty('2');">2</li>
+                    <li class ="dropdown-item"   ng-click = "changeQty('3');">3</li>
+                    <li class ="dropdown-item"   ng-click = "changeQty('4');">4</li>
+                    <li class ="dropdown-item" ng-click = "changeQty('5');">5</li>
+                    <li class ="dropdown-item"  ng-click = "changeQty('6');">6</li>
+                    <li class ="dropdown-item"   ng-click = "changeQty('7');">7</li>
+                    <li class ="dropdown-item"   ng-click = "changeQty('8');">8</li>
+                    <li class ="dropdown-item"   ng-click = "changeQty('9');">9</li>
+           
+                </ul>
+                </div>
+            </div>
+                        <form name= "checkoutForm" ng-submit="checkoutFunc(checkout);" class = "btn-group">
+                <button type ="button" class = "btn btn-primary">Size</button>
+                <br>
+                <button type ="button" class = "btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <!-- <span class = "caret"></span>-->
+                    <span class = "sr-only">Toggle Dropdown</span>
+                </button>
+                
+                <ul class = "dropdown-menu">
+                    <li ng-model="checkout.size"ng-click = "changeSize('S');">S</li>
+                    <li ng-model="checkout.size"ng-click = "changeSize('M');">M</li>
+                    <li ng-model="checkout.size"ng-click = "changeSize('L');">L</li>
+           
+                </ul>
+                <br>
+                <br>
+                 <button type ="submit" class = "btn btn-primary" >Submit</button>
+            </form>
+                        <div class = "row">
+                <div class = "col-sm-12">
+                    <p></p>
+                    <p  class="addToCart"ng-show="addedToCart"><strong>({{itemAddedToCart}}) </strong> Successfully added to your cart!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<br>
+<br>
+<div class = "row">
+    <div class = "col-sm-6 details">
+        <div class ="pull-right ">
+            <i class="fa fa-plus openbox" ng-click = "openDetails();" ng-class= "{deselected: shippingSelection === 1}"aria-hidden="true"></i>
+            <i class="fa fa-minus closebox" ng-click = "openDetails();" ng-class= "{deselected: shippingSelection === 0}"aria-hidden="true"></i>
+            <br>
+            
+        </div>
+        <br>
+        
+        <div ng-show="selection === 1"class= "container-fluid detailo">
+            <h3 class ="detailostyling">Details</h3>
+            <p class = "secondarytextsimple detailostyling">{{mensShoe.description}}</p>
+        </div>
+        <div class ="pull-right ">
+            <i class="fa fa-plus" ng-click = "openFit();" ng-class= "{deselected: fit === 1}"aria-hidden="true"></i>
+            <i class="fa fa-minus" ng-click = "openFit();" ng-class= "{deselected: fit === 0}"aria-hidden="true"></i>
+            <br>
+        </div>
+        <br>
+        <div ng-show="fit=== 1"class= "container-fluid detailo">
+            <h3>Shipping & Returns</h3>
+            <p class ="secondarytextsimple">{{shipping}}</p>
+            <br>
+            <p class ="secondarytextsimple">{{returns}}</p>
+        </div>
+            
+        <br>
+    <br>
+    </div>
+    
+
+                    
+   </div>        
+        
+    <div class = "row">   
+        
+ 
+    <div class = "col-sm-12 details">
+
+    </div>
+    </div>
+    <div class = "row">
+    <div class = "col-sm-3 sitemap">
+        
+        <ul>
+            <li><a href = "/faq"><p>Faq</p></a></li>
+            <li><a href = "#"><p>Order Tracking</p></a></li>
+            <li><a href = "#"><p>Return Policy</p></a></li>
+            <li><a href = "#"><p>Shoe Chart Size</p></a></li>
+            <li><a href = "#"><p>Contact Us</p></a></li>
+        </ul>
+        
+    </div>
+    <div class = "col-sm-6">
+    </div>
+    <div class  = "col-sm-3 emailsignup pull-right">
+        <br>
+        <br>
+        <br>
+        <br>
+  <div class = "socialmediaboxes boxshadow"><center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px  "class="fa fa-instagram socialmediabuttons" aria-hidden="true"></i></a></center></div>
+            <div class = "socialmediaboxes boxshadow"><center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px "class="fa fa-facebook socialmediabuttons" aria-hidden="true"></i></a></center></div>
+            <div class = "socialmediaboxes boxshadow"><center><a href="https://www.instagram.com/houseofjewelsboutique/"><i style = "font-size:25px "class="fa fa-twitter socialmediabuttons " aria-hidden="true"></i></a></center></div>
+            
+    </div>
+    <div class = "col-sm-1">
+    </div>
+
+</div>
+

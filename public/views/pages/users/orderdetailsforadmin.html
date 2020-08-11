@@ -1,0 +1,52 @@
+<br>
+<div class = "container container-fluid">
+
+    <div class = "col-sm-12">
+
+        <div class = "page-header">
+   <center> <h1 class="orderhistorytitle">Order #{{orderNumberAsTitle}}</h1></center>
+</div>
+
+
+<div class = "table-responsive "id="orderhistorystyling">
+<table class="table table-sm">
+  <thead>
+    <tr>
+      
+      
+      <th>Name</th>
+      <th>Size</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th></th>
+      
+
+     
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="order in ordersDataArray track by $index">
+            
+            
+            <td class ="secondarytextsimple linkdecoration"><a href = "/shop/mens/{{order.name}}">{{order.name}}</a></td>
+            <td class ="secondarytextsimple">{{order.size }}</td>
+            <td class ="secondarytextsimple">{{order.amt}}</td>
+            <td class ="secondarytextsimple">{{order.price | currency}}</td>
+
+            
+            <td>
+              <button ng-click = "showModal(5,$index);"class = "btn btn-submit">Remove</button> <!--removeOrder($index);-->
+            </td>
+    </tr>
+    <!--<tr >
+        <td>{{orders[orders.length-1]}}</td>
+    </tr>-->
+
+  </tbody>
+</table>
+</div>
+
+
+    </div>
+
+</div>

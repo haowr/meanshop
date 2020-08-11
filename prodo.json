@@ -1,0 +1,68 @@
+[{
+	"name": "Dodecahedron",
+	"price": 2.95,
+	"description": "This is the shape of the universe... shh",
+
+
+	"images": [{
+
+			"full": "2.jpg",
+			"thumb": "IMG_31121.JPG"
+
+		},
+		{
+			"full": "IMG_030811.JPG",
+			"thumb": "IMG_030811.JPG"
+		}
+	],
+	"reviews": [{
+
+			"stars": 5,
+			"body": "I love this product-o!",
+			"author": "joe@thomas.com"
+
+
+
+		},
+		{
+			"stars": 1,
+			"body": "Nahhhhhh",
+			"author": "tim@hater.com"
+
+		}
+	]
+
+
+}, {
+	"name": "Pentagonal Gem",
+	"price": 5.55,
+	"description": "...",
+
+	"images": [{
+
+			"full": "3.jpg",
+			"thumb": "IMG_31121.JPG"
+
+		},
+		{
+			"full": "IMG_03081.JPG",
+			"thumb": "IMG_03081.JPG"
+		}
+	],
+	"reviews": [{
+
+			"stars": 5,
+			"body": "I love this product-o!",
+			"author": "joe@thomas.com"
+
+
+
+		},
+		{
+			"stars": 1,
+			"body": "Nahhhhhh",
+			"author": "tim@hater.com"
+
+		}
+	]
+}]

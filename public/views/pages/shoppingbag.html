@@ -1,0 +1,190 @@
+<br>
+<div class="container container-fluid">
+    <div class="row">
+        <div class="col-sm-12 ">
+            <center>
+                <h2 id="maintitle">THE HOUSE OF JEWELS</h2>
+            </center>
+            <center><img src="../img/logosm.jpg"></center>
+        </div>
+        <div class="col-sm-12 details">
+        </div>
+        <div class="col-sm-12 pull-left">
+            <!--<a href="/shop"><p>continue-shopping</p></a>-->
+        </div>
+        <div class="col-sm-8 shoppingbagtitle">
+            <br>
+            <h3 id="shoppingbagtitlestyling">Shopping Bag</h3>
+
+            <div class="pull-left">
+                <p>Need help?</p>
+                <p> Please, <a href='/faq'>Visit the FAQ</a></p>
+
+                <!--<button ng-show="shoppingBagShoes.length > 0"class = "btn btn-submit"><a href="shop/checkout">Begin Checkout</a></button>-->
+
+                <a href="/shop"><button  class = "btn btn-submit">Continue Shopping</button></a>
+
+            </div>
+
+            <br>
+            <br>
+
+        </div>
+        <div class="col-sm-3">
+
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-12" ng-show="shoppingBagReady">
+            <center><i style ="font-size : 25px"class="fa fa-spinner fa-spin fa-3x fa-fw"></i></center>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="row emptycartstyling" ng-show="shoppingBagShoes.length == 0 || shoppingCartEmpty ">
+        
+        <div class="col-sm-12">
+            <center>
+                <p > (Cart Empty) </p>
+            </center>
+            <center>
+                <p > Visit The <a  href="/shop"><strong>Shop</strong></a> To Add Items! </p>
+            </center>
+
+        </div>
+    </div>
+    <div ng-show="shoppingBagShoes.length > 0" class="row   "ng-repeat="shoe in shoppingBagShoes track by $index">
+
+        <div class="col-sm-2">
+            <a href="/shop/mens/{{shoe.name}}"> <img  class ="img-fluid"ng-src="{{shoe.image}}"></a>
+        </div>
+        <div class="col-sm-2 ">
+            <p  class = "secondarytextsimple"id="shopdescription">{{shoe.description |limitTo:25}}...</p>
+        </div>
+        <div class="col-sm-2">
+            <p class = "secondarytextsimple">{{shoe.price | currency}}</p>
+
+        </div>
+        <div class="col-sm-2">
+            <p class = "secondarytextsimple">{{shoe.price * shoe.amt | currency}}</p>
+        </div>
+        <div class="col-sm-2">
+
+            <p class = "secondarytextsimple"><i ng-click="increaseQuantity($index,shoe.amt);" class="fa fa-plus-square-o" aria-hidden="true"></i>&nbsp&nbsp {{shoe.amt}}&nbsp&nbsp
+                <i ng-click="reduceQuantity($index,shoe.amt);" class="fa fa-minus-square-o " aria-hidden="true"></i>
+            </p>
+
+            
+
+        </div>
+        <div class="col-sm-2">
+            <button ng-show="shoppingBagShoes.length > 0" ng-click="removeOneItem($index);" class="btn btn-sm btn-submit"> Remove</button>
+            <!--<p>{{shoe.price * shoe.amt| currency}}</p>-->
+        </div>
+    </div>
+    <br>
+    <div class="row emptycartstyling" ng-show="shoppingBagShoes.length >0 ">
+
+        <div class="col-sm-12">
+            <button ng-show="shoppingBagShoes.length > 0" ng-click="clearShoppingBag();" class="btn btn-submitdarker"> Clear Cart</button>
+
+        </div>
+        <br>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            <form id="couponFader" name="couponCodeForm" ng-submit="addCouponCode(couponCode, couponCodeForm.$valid);" ng-show="shoppingBagShoes.length > 0"
+                novalidate>
+
+
+                <div class="form-group">
+                    <!-- Email Div -->
+                    <div ng-class="{ 'has-success':(couponCodeForm.code.$valid && !couponCodeForm.code.$pristine && !codeInvalid)||totalaftercoupon, 'has-error': (!couponCodeForm.code.$valid && couponCodeForm.$submitted) || codeInvalid }">
+                        <!-- Email Input -->
+                        <label class="couponcodestyling" ng-show="!totalaftercoupon && !fillcart"><strong>Enter Your Coupon Code:</strong></label>
+                        <label class="couponcodestyling" ng-show="fillcart">Visit the <a class = "shoplinkstyling"href= "/shop"><strong>Shop</strong></a> to add items to your cart!</label>
+                        <label class="couponcodestyling" ng-show="totalaftercoupon && !fillcart"><strong>Coupon Code Activated!!!</strong></label>
+                        <input ng-disabled="totalaftercoupon" class="form-control" type="text" name="code" placeholder="Enter Your Coupon Code!"
+                            ng-model="couponCode.code" ng-minlength="3" ng-maxlength="40" required>
+                        <!-- Email Validation -->
+                        <p class="help-block" ng-show="(!emailSignup.email.$pristine && emailSignup.email.$error.required) || (emailSignup.$submitted && emailSignup.email.$error.required)">This field is required</p>
+                        <span ng-show="checkingEmail && emailSignup.email.$valid" class="glyphicon glyphicon-repeat"></span>
+                        <p class="help-block" ng-show="emailMsg && !emailSignup.email.$error.required && emailSignup.email.$valid">{{ emailMsg }}</p>
+                        <ul ng-show="couponCodeError" class="help-block" id="invalidcouponcodestyling">
+                            <li>Invalid Coupon Code...</li>
+
+                        </ul>
+                    </div>
+                </div>
+                <button ng-disabled="totalaftercoupon" class="btn btn-submit">Submit!</button>
+
+
+            </form>
+        </div>
+        <div class="col-sm-6">
+
+
+        </div>
+    </div>
+
+
+    <div class="row">
+
+
+        <div class="col-sm-6 pull-left">
+            <!-- id="totalFader"  -->
+            <p ng-show="!couponCodeAdded && shoppingBagShoes.length > 0"><strong>Total:</strong> {{oldtotal|currency}}</p>
+            <p ng-show="couponCodeAdded"><strong>Total before Coupon Code:</strong> {{oldtotal|currency}}</p>
+
+        </div>
+        <div class="col-sm-6 pull-left">
+            <p id="totalWithCouponFader" ng-show="couponCodeAdded"><strong>Total after Coupon Code:</strong> {{total|currency}}</p>
+
+
+        </div>
+
+        <div class="col-sm-4 pull-left">
+            <p id="totalWithShippingFader" ng-show="totalWithShipping"><strong>Estimated total w/shipping:</strong> {{grandTotal|currency}}
+                <p>
+
+        </div>
+        <div class="col-sm-8 pull-right">
+            <!-- <p ng-show="totalWithShipping">{{grandTotal|currency}}</p>-->
+        </div>
+
+        <div class="col-sm-4 pull-left">
+            <form id="shippingFader" ng-show="shoppingBagShoes.length >0">
+                <div class="form-group">
+                    <label for="sel1"><strong>Shipping:</strong></label>
+
+                    <select ng-change="chooseShipping(number)" ng-model="number" class="form-control" id="sel1">
+                                    <option ng-click="chooseShipping(1);" value="1">1-7 Days Expedited $7.95</option>
+                                    <option ng-click="chooseShipping(2);" value="2">1-2 Days Xpresspost $15.00</option>
+                                </select>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-8 pull-right">
+        </div>
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+
+            <a href="/shop/checkout"><button type="submit" ng-show="beginCheckout" class="btn btn-submit btn-fader">Begin Checkout</button></a>
+
+        </div>
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-12 details2">
+        </div>
+    </div>
+    <br>
+    <br>
+</div>

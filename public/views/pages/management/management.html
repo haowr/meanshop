@@ -1,0 +1,208 @@
+<div class="container container-fluid">
+
+    <br>
+    <!-- Input for filter -->
+    <div class="row">
+        <div class="col-sm-12">
+            <center>
+                <h4 class="bellefair">User Management</h4>
+            </center>
+        </div>
+       
+        <div class="col-sm-12">
+          <!--  <button type="button" ng-click="management.showMore(number);" class="btn btn-sm btn-submit">Apply Filter</button>
+            <button type="button" ng-click="management.showAll();" class="btn btn-sm btn-submitdarker">Show All</button>
+            <div class="input-group pull-left">
+                <span class="input-group-addon">Results to dislay</span>
+                <input type="text" class="form-control" ng-model="number">
+            </div>-->
+        </div>
+    </div>
+    <br>
+    <div ng-show="searchFilter !== undefined">
+        <p><strong>Total Results:</strong>{{( management.users | filter: searchFilter ).length }}</p>
+    </div>
+    <div ng-show="searchFilter !== undefined">
+        <p><strong>Showing:</strong>{{( management.users | filter: searchFilter | limitTo: management.limit ).length}}</p>
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table table-sm table-inverse">
+            <thead>
+                <tr>
+
+                    <th>Name|</th>
+                    <th>Username|</th>
+                    <th>E-mail|</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="person in management.users|itemsPerPage:2 track by $index " pagination-id="userlist">
+                    <td>{{person.name}}</td>
+                    <td>{{person.username}}</td>
+                    <td>{{person.email}}</td>
+                    <td>
+                        <a href="/edit/{{person._id}}"> <button ng-show='management.editAccess' type="button" class = "btn btn-sm  btn-submit">Edit</button></a>
+                        <button ng-show='management.deleteAccess' ng-click="management.deleteUser(person.username);" type="button" class="btn btn-sm btn-submitdarker">Delete</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+                  <dir-pagination-controls pagination-id ="userlist"
+       max-size="2"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+    </div>
+    <div class="row show-hide-message" ng-show="management.showMoreError">
+        <div class="alert alert-danger">{{management.showMoreError}}&nbsp </div>
+    </div>
+
+
+    <div class="jumbotron text-center" ng-show="management.loading">
+
+        <span class="glyphicon glyphicon-repeat spin"></span>
+        <p>loading...</p>
+
+    </div>
+    <br>
+    <div class="row show-hide-message" ng-show="management.successMsg">
+        <div class="alert alert-success">{{management.successMsg}}</div>
+
+    </div>
+<!--
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="button" ng-click="management.showMore(number);" class="btn btn-sm btn-submit">Apply Filter</button>
+            <button type="button" ng-click="management.showAll();" class="btn btn-sm btn-submitdarker">Show All</button>
+
+
+            <div class="input-group pull-left">
+                <span class="input-group-addon">Results to dislay</span>
+                <input type="text" class="form-control" ng-model="number">
+            </div>
+        </div>
+    </div>-->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <center>
+                <h4 class="bellefair">E-mail List</h4>
+            </center>
+
+           <!-- <span class="sr-only">Loading...</span>-->
+            <center>
+                <p ng-show="emailList.length < 1" class="secondarytext">(No Entries...)</p>
+            </center>
+
+        </div>
+    </div>
+
+
+
+    <div class="table-responsive">
+        <table class="table table-sm table-inverse">
+            <tbody>
+                <tr dir-paginate="email in emailList|itemsPerPage:5 track by $index">
+                    <td>{{email.email}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button class="btn btn-sm btn-submit" ng-click="removeEmail(email.email,$index);">Remove</button></td>
+
+                </tr>
+            </tbody>
+        </table>
+          <dir-pagination-controls
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <center>
+                <h4 class="bellefair">Store Order History</h4>
+            </center>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-inverse">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Order #</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="store in storeHistory|itemsPerPage:5 track by $index" pagination-id="orders">
+                    <td>{{store.username}}</td>
+                    <td><a href="/profile/orderdetails/{{store.username}}/{{$index}}">{{$index + 1}}</a></td>
+                    <td>{{store.items}}</td>
+                    <td>{{store.grandTotal | currency}}</td>
+                    <td style="word-wrap:break-word">{{store.timestammp}}</td>
+                    <td><i class="fa fa-times" ng-click="removeEmail(email);"></i></td>
+                    <!--<button ng-click="showModal(3,$index);" class="btn btn-submit">Remove</button>-->
+
+
+                </tr>
+            </tbody>
+        </table>
+                  <dir-pagination-controls pagination-id="orders"
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <center>
+                <h4 class="bellefair">Outgoing Inventory</h4>
+            </center>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-inverse">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item Name</th>
+
+                    <th>Qty</th>
+
+                    <th>Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr dir-paginate="item in inventory|itemsPerPage:5 " pagination-id="i">
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.name}}</td>
+
+                    <td>{{item.amt}}</td>
+
+                    <td>{{item.timestammp}}</td>
+                    <td><i class="fa fa-times" ng-click="removeEmail(email);"></i></td>
+                    <!--<button ng-click="showModal(3,$index);" class="btn btn-submit">Remove</button>-->
+
+
+                </tr>
+            </tbody>
+        </table>
+                          <dir-pagination-controls pagination-id="i"
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+    </div>
+    <div class="col-sm-12 details2">
+    </div>
+    <br>
+    <br>
+</div>

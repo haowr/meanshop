@@ -1,0 +1,213 @@
+
+#storeWidth{
+
+  max-width: 500px;
+  margin: 0 auto;
+
+}
+
+a {
+  color: #00000f;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+ul{
+  padding: 0;
+}
+
+li{
+  list-style: none;
+}
+
+li.small-image{
+  width: 50px;
+}
+
+li.small-image img{
+  width: 100%;
+}
+
+img{
+  max-width: 230px;
+  max-height: 230px;
+  
+}
+.list-group-item{
+
+  display:inline-block;
+  padding-right: 30px;
+
+}
+
+.img-wrap {
+  background: #f8f8f8;
+  height: 200px;
+  margin: 0 auto 20px;
+  padding: 10px;
+  width: 200px;
+}
+
+.img-thumbnail {
+  background: none;
+  border: 0;
+  height: auto;
+  max-width: 100%;
+}
+
+.img-thumbnails {
+  margin: 0 auto 10px;
+  width: 200px;
+}
+
+.img-thumbnails .thumbnail {
+  background: #f8f8f8;
+  border: 0;
+  margin-right: 25px;
+  min-height: 50px;
+}
+
+.img-thumbnails .thumbnail:last-child {
+  margin-right: 0;
+}
+
+.nav-pills {
+  margin-bottom: 30px;
+  color: rgba(0,0,0,.5);
+}
+.nav-pills > li:focus{
+color: rgba(0,0,0,.5);
+
+
+}
+
+.nav-pills > li > a:hover,
+.nav-pills > li > a:focus{
+  color: rgba(0,0,0,1);
+}
+
+.nav-pills > li.active > a,
+.btn-primary,
+.btn-primary:focus {
+  background: rgba(0,0,0,.2);
+  border: 0;
+}
+
+.nav-pills > li.active > a:hover,
+.btn-primary:hover {
+  background: rgba(0,0,0,.5);
+}
+.ng-invalid.ng-dirty{
+ border-color: #FA787E;
+
+}
+.ng-valid.ng-dirty{
+
+border-color: #78FA89;
+
+}
+p{
+
+font-family:'Muli';
+
+}
+h4{
+
+
+font-family:'Muli';
+
+}
+h3{
+
+  
+font-family:'Muli';
+}
+
+h2{
+
+  font-family:'Muli';
+}
+h1{
+
+  font-family:'Muli';
+}
+
+em{
+
+  
+font-family:'Muli';
+}
+blockquote{
+
+font-family:'Muli';
+
+}
+.thumbnail{
+
+}
+.image {
+    width: 100%;
+    height: 100%;    
+}
+.image img {
+    -webkit-transition: all 1s ease; /* Safari and Chrome */
+  	-moz-transition: all 1s ease; /* Firefox */
+  	-o-transition: all 1s ease; /* IE 9 */
+  	-ms-transition: all 1s ease; /* Opera */
+  	transition: all 1s ease;
+}
+
+.image:hover img {
+    -webkit-transform:scale(2.5); /* Safari and Chrome */
+    -moz-transform:scale(2.5); /* Firefox */
+    -ms-transform:scale(2.5); /* IE 9 */
+    -o-transform:scale(2.5); /* Opera */
+     transform:scale(2.5);
+}
+nav{
+
+position:fixed;
+
+}
+/*
+.title{
+
+border: 1px solid black;
+
+}
+*/
+#hearts{
+
+display:absolute;
+margin-top:20px;
+float:right;
+
+opacity:0.5;
+transition:1s;
+
+
+}
+#hearts:hover{
+
+opacity: 1;
+
+
+}
+#heartlink{
+
+
+color:rgba(0,0,0,0);
+
+}
+
+#titles{
+display:inline-block;
+
+}
+.each{
+
+border: 1px, solid, black;
+
+}

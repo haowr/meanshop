@@ -1,0 +1,15 @@
+{
+  "short_name": "The House Of Jewels",
+  "name": "The House Of Jewels",
+  "icons": [
+    {
+      "src": "./icon192X192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+   
+  ],
+  "start_url": "/shop",
+  "display": "standalone",
+  "orientation": "landscape"
+}
